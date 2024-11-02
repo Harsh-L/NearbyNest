@@ -60,7 +60,6 @@ class Menu(ft.Page):
                 ]
             )
         
-        # self.theme = ft.ColorScheme(primary=ft.colors.GREEN, surface=ft.colors.GREEN)
         self.views.append(meView)
         self.Navigation.selected_index = 2
         if self.theme_mode == ft.ThemeMode.LIGHT:
