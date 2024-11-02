@@ -13,13 +13,20 @@ class Menu(ft.Page):
                                 ft.NavigationBarDestination(icon=ft.icons.MENU, label="Menu"),
                                 ]
                             )
+        self.isServiceProvider_label = ft.Text(value='Work as Service Provider')
+        self.isServiceProvider = ft.Switch(label_position=ft.LabelPosition.LEFT, 
+                                  adaptive=True,
+                                  value=False, 
+                                  splash_radius=10,
+                                  )
+        
         self.AppTheme_label = ft.Text(value='Dark Mode')
         self.AppTheme = ft.Switch(label_position=ft.LabelPosition.LEFT, 
                                   adaptive=True,
                                   value=False, 
                                   splash_radius=10,
                                   on_change=lambda _: ChangeTheme(_))
-        self.YourOrders = ft.ElevatedButton('Your Orders', on_click=lambda _: self.go('/yourorders'))
+        self.ServiceHistory = ft.ElevatedButton('Service History', on_click=lambda _: self.go('/servicehistory'))
         self.BuyAgain = ft.ElevatedButton('Buy Again')
         self.YourAccount = ft.ElevatedButton('Your Account')
         self.Favourites = ft.ElevatedButton('Favourites')
@@ -34,7 +41,7 @@ class Menu(ft.Page):
 
         self.firstRow = ft.Row(
                         [
-                            self.YourOrders,
+                            self.ServiceHistory,
                             self.BuyAgain
                         ],
                         alignment=ft.MainAxisAlignment.SPACE_EVENLY
@@ -50,6 +57,8 @@ class Menu(ft.Page):
         meView = ft.View(
             "/menu",
                 [
+                    ft.Row(controls=[self.isServiceProvider_label, self.isServiceProvider],
+                           alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                     ft.Row(controls=[self.AppTheme_label, self.AppTheme],
                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                     self.firstRow,
@@ -61,6 +70,7 @@ class Menu(ft.Page):
             )
         
         self.views.append(meView)
+
         self.Navigation.selected_index = 2
         if self.theme_mode == ft.ThemeMode.LIGHT:
             self.AppTheme.value = False
