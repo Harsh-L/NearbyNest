@@ -14,7 +14,21 @@ def main(page: ft.Page):
                 page.theme_mode = ft.ThemeMode.SYSTEM
     else:
         page.theme_mode = ft.ThemeMode.SYSTEM
+
+    gl = ft.Geolocator(
+            location_settings=ft.GeolocatorSettings(
+                accuracy=ft.GeolocatorPositionAccuracy.LOW
+            ),
+            on_error=lambda e: page.add(ft.Text(f"Error: {e.data}")),
+        )
+    page.overlay.append(gl)
     page.update()
+
+    if gl.get_permission_status() in [ft.GeolocatorPermissionStatus.UNABLE_TO_DETERMINE,ft.GeolocatorPermissionStatus.DENIED, ft.GeolocatorPermissionStatus.DENIED_FOREVER]:
+        gl.request_permission()
+    
+    if not gl.is_location_service_enabled():
+        gl.open_location_settings()
 
     page.theme = ft.Theme(color_scheme_seed='#769CDF',
                           visual_density=ft.VisualDensity.ADAPTIVE_PLATFORM_DENSITY, 

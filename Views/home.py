@@ -7,11 +7,8 @@ class Home(ft.Page):
         super.__init__()
 
     def  build(self):
-        # self.suggested_item = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         self.search = ft.TextField(autofocus=False, hint_text='Search', prefix_icon=ft.icons.SEARCH, 
-                                    # on_change=lambda e: suggest_items(e),
                                      on_focus=lambda _: self.go('/search'), 
-                                    #  on_blur=lambda e:remove_list(e)
                                 )
         self.navigation = ft.CupertinoNavigationBar(
                         bgcolor=ft.colors.WHITE24,
@@ -33,7 +30,6 @@ class Home(ft.Page):
             "/home",
                 [
                     self.search,
-                    # self.suggested_item,
                     self.items,
                     self.navigation
                 ]

@@ -12,7 +12,7 @@ class Search(ft.Page):
         self.searchRef = ft.Text(text_align=ft.TextAlign.LEFT)
         self.back_button = ft.TextButton(
                             content=ft.Icon(name=ft.icons.ARROW_BACK),
-                            on_click=lambda _:self.go('/home'),
+                            on_click=lambda _: goBack(_),
                             style=ft.ButtonStyle(
                                 shape={
                                     '': ft.RoundedRectangleBorder()
@@ -50,9 +50,14 @@ class Search(ft.Page):
                 ]
             )
         
-        self.views.clear()
+        # self.views.clear()
         self.views.append(SearchView)
         self.go('/search')
+
+        def goBack(_):
+            self.views.pop()
+            top_view = self.views[-1]
+            self.go(top_view.route)
 
         def clearSearch(e):
             self.search.value = ''
@@ -110,5 +115,6 @@ class Search(ft.Page):
                     self.go('/menu')
         
         def openItem(_):
-            self.go('/item', q=self.searchRef.value)
+            # self.views.pop()
+            self.go('/servicelist', q=self.searchRef.value)
         # return SearchView

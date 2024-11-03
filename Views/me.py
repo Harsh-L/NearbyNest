@@ -6,7 +6,6 @@ class Me(ft.Page):
         super.__init__()
 
     def  build(self):
-        me = Me
         self.Navigation = ft.CupertinoNavigationBar(bgcolor=ft.colors.WHITE24, on_change=lambda _: route_change(_),
                             destinations=[
                                 ft.NavigationBarDestination(icon=ft.icons.HOME_OUTLINED, label="Home"),
@@ -42,6 +41,17 @@ class Me(ft.Page):
         self.YourAccount = ft.ElevatedButton('Your Account')
         self.Favourites = ft.ElevatedButton('Favourites')
 
+        self.PastService_Label = ft.Text('Service History')
+        self.PastServices_List = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True,horizontal=True)
+
+        self.PastService = ft.Column(
+                            [
+                                self.PastService_Label,
+                                self.PastServices_List
+                            ]
+                        )
+        
+
         self.firstRow = ft.Row(
                         [
                             self.YourOrders,
@@ -56,22 +66,18 @@ class Me(ft.Page):
                         ],
                         alignment=ft.MainAxisAlignment.SPACE_EVENLY
                     )
-        
-        self.OrdersList = ft.Text()
 
         meView = ft.View(
             "/me",
                 [
-                    # self.Avatar,
-                    # self.Username_Text,
                     self.Profile,
                     self.firstRow,
                     self.secondRow,
+                    self.PastService,
                     self.Navigation
                 ]
             )
         
-        # self.theme = ft.ColorScheme(primary=ft.colors.GREEN, surface=ft.colors.GREEN)
         self.views.append(meView)
         self.Navigation.selected_index = 1
         self.Username_Text.value = 'Hello, '+self.client_storage.get(os.getenv('USERNAME_TEXT'))
