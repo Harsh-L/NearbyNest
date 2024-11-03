@@ -10,12 +10,13 @@ from Views.home import Home
 from Views.search import Search
 from Views.me import Me
 from Views.menu import Menu
+from Views.servicelist import ServiceList
 
 def controller(page: ft.Page):
     # if page.route.split("?").__len__() > 1:
     #     print(page.route.split("?")[1])
     #     print(urllib.parse.urlencode(page.route.split("?")[1]))
-
+    # print(page.route.split("?")[0])
     page.route = page.route.split("?")[0]
     match page.route:
         case '/':
@@ -23,16 +24,15 @@ def controller(page: ft.Page):
         case '/register': 
             Register.build(page)
         case '/home':
-            # LoginFromClientStorage(page)
             Home.build(page),
         case '/search':
-            # LoginFromClientStorage(page)
             Search.build(page),
+        case '/servicelist':
+            ServiceList.build(page),
         case '/me':
             LoginFromClientStorage(page)
             Me.build(page),
-        case '/menu': 
-            # LoginFromClientStorage(page)
+        case '/menu':
             Menu.build(page)
         case _: NotFound.build(page)
 

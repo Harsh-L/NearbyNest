@@ -26,10 +26,7 @@ class Menu(ft.Page):
                                   value=False, 
                                   splash_radius=10,
                                   on_change=lambda _: ChangeTheme(_))
-        self.ServiceHistory = ft.ElevatedButton('Service History', on_click=lambda _: self.go('/servicehistory'))
-        self.BuyAgain = ft.ElevatedButton('Buy Again')
-        self.YourAccount = ft.ElevatedButton('Your Account')
-        self.Favourites = ft.ElevatedButton('Favourites')
+        
         self.signOut = ft.ElevatedButton(text='Sign Out',expand=True, 
                                          style=ft.ButtonStyle(
                                              shape={
@@ -39,37 +36,20 @@ class Menu(ft.Page):
                                             on_click=lambda _: LogOut(_)
                                     )
 
-        self.firstRow = ft.Row(
-                        [
-                            self.ServiceHistory,
-                            self.BuyAgain
-                        ],
-                        alignment=ft.MainAxisAlignment.SPACE_EVENLY
-                    )
-        self.secondRow = ft.Row(
-                        [
-                            self.YourAccount,
-                            self.Favourites
-                        ],
-                        alignment=ft.MainAxisAlignment.SPACE_EVENLY
-                    )
 
-        meView = ft.View(
+        MenuView = ft.View(
             "/menu",
                 [
                     ft.Row(controls=[self.isServiceProvider_label, self.isServiceProvider],
                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                     ft.Row(controls=[self.AppTheme_label, self.AppTheme],
                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                    self.firstRow,
-                    self.secondRow,
                     self.Navigation,
                     ft.Row(controls=[self.signOut]),
-                    
                 ]
             )
         
-        self.views.append(meView)
+        self.views.append(MenuView)
 
         self.Navigation.selected_index = 2
         if self.theme_mode == ft.ThemeMode.LIGHT:
